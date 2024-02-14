@@ -3,6 +3,13 @@ class Animal {
   float speedX, speedY;
   float maxAge, age;
   boolean isAlive;
+  PVector pos;
+  float sw;
+  float sh;
+  float ratio;
+  float hunger;
+  float cx;
+  float cy;
 
   Animal(float ax, float ay) {
     x = ax;
@@ -12,6 +19,19 @@ class Animal {
     maxAge = random(10,20);
     age = 0;
     isAlive = true;
+  }
+  Animal(float ax, float ay, int xFass, int yFass, int sizeW, int sizeH) {
+    x = ax;
+    y = ay;
+    sw = sizeW;
+    sh = sizeH;
+    speedX = xFass;
+    speedY = yFass;
+    maxAge = random(10,20);
+    age = 0;
+    isAlive = true;
+    cx = pos.x + sw/2;
+    cy = pos.y + sh/2;
   }
 
   void move() {

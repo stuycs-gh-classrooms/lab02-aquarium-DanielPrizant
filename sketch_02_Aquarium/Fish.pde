@@ -1,26 +1,26 @@
 class Fish extends Animal{
   
-  Fish(int X,int Y,int Xfast,int Yfast,int size){
-  super(X,Y,Xfast,Yfast,size);
-  xSpeed=ySpeed*2;
+  Fish(int X,int Y,int Xfast,int Yfast,int sizeW, int sizeH){
+  super(X,Y,Xfast,Yfast,sizeW,sizeH);
+  speedX=speedY*2;
   }//constructor
   
   void display(){
     rectMode(CENTER);
    fill(200,200,0);
-   rect(x,y,2*s,s);
+   rect(x,y,2*sw,sh);
     
     
   }//display
   void move(){
-   if (x<=s+tankX||x>=tankX+tankW-s){
-    xSpeed*=-1; 
+   if (x<=sw+tankX||x>=tankX+tankW-sw){
+    speedX*=-1; 
    }
-   if(y<=tankY+(s/2)||y>=tankY+tankH-(s/2)){
-    ySpeed*=-1; 
+   if(y<=tankY+(sh/2)||y>=tankY+tankH-(sh/2)){
+    speedY*=-1; 
    }
-   x+=xSpeed;
-   y+=ySpeed;
+   x+=speedX;
+   y+=speedY;
   }//move
   
   

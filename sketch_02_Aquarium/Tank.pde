@@ -1,8 +1,6 @@
 class Tank {
   int x, y, w, h, floorHeight;
   Animal[] animals;
-  Penguinz[] pengys;
-  //Crabz[] crabs;
   int numAnimals;
 
   Tank(int tx, int ty, int tw, int th, int tfloorHeight) {
@@ -12,7 +10,6 @@ class Tank {
     h = th;
     floorHeight = tfloorHeight;
     animals = new Animal[50]; 
-    pengys = new Penguinz[50];
     numAnimals = 0;
   }
 
@@ -23,26 +20,58 @@ class Tank {
     rect(x, y + h - floorHeight, w, floorHeight);
     
     for (int i = 0; i < numAnimals; i++) {
-      pengys[i].display(); // changed from animals
+      animals[i].display();
     }
   }
 
   void moveAnimals() {
     for (int i = 0; i < numAnimals; i++) {
       println(i);
-      pengys[i].move(); // changed from animals
-      pengys[i].keepInTank(x, y, w, h - floorHeight); //changed from animals
+      animals[i].move(); 
+      animals[i].keepInTank(x, y, w, h - floorHeight); 
     }
   }
 
-  void addAnimal(int posX, int posY) {
+  void addAnimalCrab(int posX, int posY) {
     if (numAnimals < animals.length) {
-      if(posX > floorHeight){
-        pengys[numAnimals++] = new Penguinz(posX, posY);
-      }
-      if(posX <= floorHeight){
-       // crabs[numAnimals++] = new Crab(posX, posY);
-      }
+      
     }
   }
+
+void addAnimalFish(int posX, int posY) {
+    if (numAnimals < animals.length) {
+      
+    }
+  }
+
+
+void addAnimalGoldFish(int posX, int posY) {
+    if (numAnimals < animals.length) {
+      
+    }
+  }
+
+
+void addAnimalTurtle(int posX, int posY) {
+    if (numAnimals < animals.length) {
+      
+    }
+  }
+  
+void addAnimal(int posX, int posY) {
+    if (numAnimals < animals.length) {
+      if(posY < floorHeight){
+        int temp = int(random(2));
+        if(temp == 1){
+          //add crab
+        }
+        else if(temp == 2){
+          //add Turtle
+        }
+        else{
+          println( "-1");
+        }
+      }
+    }
+  }  
 }
