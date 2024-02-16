@@ -1,32 +1,65 @@
 class Turtle extends Animal {
-  Turtle(int x, int y) {
-    super(x, y);
-    speedX = random(.25, .75) * int(pow(-1, int(random(0, 2))));
-    speedY = 0;
-    sw = int(random(60, 80));
-    sh = int(random(50, 55));
+    int freezeTime;
+    boolean isFrozen; 
+
+    Turtle(int x, int y, int Xfast, int Yfast, int size) {
+        super(x, y, Xfast, Yfast, size);
+        freezeTime = 60;
+        isFrozen = false;
+    }
+  void move() {
+    if (!isFrozen) {
+      x += speedX;
+      y += speedY;
+      if (x < 0 || x > width || y < t.floorHeight || y > height) {
+          speedX *= -1;
+          speedY *= -1;
+      }
+    }
+    if (isFrozen) {
+      freezeTime--;
+      if (freezeTime <= 0) {
+          isFrozen = false;
+          speedX = random(-1, 1); 
+          speedY = random(-1, 1);
+        }
+    }
   }
+  void generateUnderFloor() {
+        x = random(width); 
+        y = random(0, t.floorHeight); 
+    }
+    void eat(ArrayList<Food> foods) {
+      super.eat(foods);
+      if (!isFrozen && random(1) < 0.3) {
+        isFrozen = true;
+        freezeTime = (int) random(60, 240);
+        if(random(1) < 0.5){
+          
+      }
+    }
+    }
   void display() {
-    fill(0, 48, 32);
-    arc(pos.x + sw/3, pos.y + sh/2, sw/1.5, sh, PI, 2*PI, CHORD);
-    fill(0, 200, 0);
-    rect(pos.x, pos.y + sh/2, sw/6, sh/2);
-    rect(pos.x + sw/2, pos.y + sh/2, sw/6, sh/2);
-    if (speedX>0) {
-      circle(pos.x + 5 * sw/6, pos.y + sh/2, sw/3);
-    }
-    if (speedX<0) {
-      circle(pos.x - sw/6, pos.y + sh/2, sw/3);
+    if (!isFrozen) {
+      super.display();
     }
   }
-  boolean collisionCheck(Goldfish other) {
-    return (dist(pos.x + 5 * sw/6, pos.y + sh/2, other.cx, other.cy)<other.sw/4);
-  }
-  void eat(Goldfish other) {
-    if (other.perished && !other.STOP && collisionCheck(other)) {
-      other.STOP = true;
-      sh += log(other.fsize) * ratio;
-      sw += log(other.fsize);
+void keepInTank() {
+    if (x < 0) {
+        x = 0;
+        speedX = abs(speedX);
+    } else if (x > width) {
+        x = width;
+        speedX = -abs(speedX);
     }
-  }
+
+    if (y < 0) {
+        y = 0;
+        speedY = abs(speedY);
+    } else if (y > height) {
+        y = height;
+        speedY = -abs(speedY);
+    }
+}
+
 }

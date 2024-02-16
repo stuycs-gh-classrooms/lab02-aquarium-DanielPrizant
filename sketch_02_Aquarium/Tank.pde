@@ -1,6 +1,8 @@
 class Tank {
   int x, y, w, h, floorHeight;
-  Animal[] animals;
+  ArrayList<Animal> mobs;
+  ArrayList<Food> foods;
+  int numFoods;
   int numAnimals;
 
   Tank(int tx, int ty, int tw, int th, int tfloorHeight) {
@@ -9,69 +11,62 @@ class Tank {
     w = tw;
     h = th;
     floorHeight = tfloorHeight;
-    animals = new Animal[50]; 
+    numFoods = 0;
     numAnimals = 0;
+    mobs = new ArrayList<Animal>();
+    foods = new ArrayList<Food>();
   }
 
   void display() {
+    rectMode(CORNER);
     fill(0, 0, 255);
     rect(x, y, w, h);
     fill(139, 69, 19);
     rect(x, y + h - floorHeight, w, floorHeight);
     
-    for (int i = 0; i < numAnimals; i++) {
-      animals[i].display();
+    for (Animal animal : mobs) {
+      animal.display();
+    }
+    
+    for (Food food : foods) {
+      food.display();
     }
   }
 
   void moveAnimals() {
-    for (int i = 0; i < numAnimals; i++) {
-      println(i);
-      animals[i].move(); 
-      animals[i].keepInTank(x, y, w, h - floorHeight); 
-    }
-  }
-
-  void addAnimalCrab(int posX, int posY) {
-    if (numAnimals < animals.length) {
-      
-    }
-  }
-
-void addAnimalFish(int posX, int posY) {
-    if (numAnimals < animals.length) {
-      
-    }
-  }
-
-
-void addAnimalGoldFish(int posX, int posY) {
-    if (numAnimals < animals.length) {
-      
-    }
-  }
-
-
-void addAnimalTurtle(int posX, int posY) {
-    if (numAnimals < animals.length) {
-      
+    for (Animal animal : mobs) {
+      animal.move();
+      animal.keepInTank(x, y, w, h - floorHeight);
     }
   }
   
-void addAnimal(int posX, int posY) {
-    if (numAnimals < animals.length) {
-      if(posY < floorHeight){
-        int temp = int(random(2));
-        if(temp == 1){
-          //add crab
-        }
-        else if(temp == 2){
-          //add Turtle
-        }
-        else{
-          println( "-1");
-        }
-      }
-    }
-  }  
+  void addFood(int x, int y) {
+    foods.add(new Food(x, y, 5));
+    numFoods++;
+  }
+
+  void addAnimal(int posX, int posY) {
+    mobs.add(new Animal(posX, posY));
+    numAnimals++;
+  }
+  
+  void addCrab(int x) {
+    mobs.add(new Crab(x, 0, 1, 1, 10));
+    numAnimals++;
+  }
+
+  void addFish(int x, int y) {
+    mobs.add(new Fish(x, y, 1, 1, 10));
+    numAnimals++;
+  }
+
+  void addGoldFish(int x, int y) {
+    mobs.add(new Goldfish(x, y, 1, 1, 10));
+    numAnimals++;
+  }
+
+  void addTurtle(int x, int y) {
+    mobs.add(new Turtle(x, y, 1, 1, 10));
+    numAnimals++;
+  }
 }
